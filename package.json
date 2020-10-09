@@ -1,7 +1,7 @@
 {
   "name": "mongoose_skeleton",
   "version": "1.0.0",
-  "description": "For this assignment, I was tasked to create a workout tracker. This assignment required us to create Mongo database with a Mongoose schema and handle routes with Express.",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,24 +9,11 @@
     "watch": "nodemon server.js",
     "seed": "node seeders/seed.js"
   },
-  "author": "John Glendening",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.10.8",
-    "morgan": "^1.9.1",
-    "node": "^14.13.0"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JohnGlendening/Fitness-Tracker.git"
-  },
-  "keywords": [
-    "exercise"
-  ],
-  "bugs": {
-    "url": "https://github.com/JohnGlendening/Fitness-Tracker/issues"
-  },
-  "homepage": "https://github.com/JohnGlendening/Fitness-Tracker#readme"
+    "express": "^4.16.3",
+    "mongoose": "^5.3.16",
+    "morgan": "^1.9.1"
+  }
 }
