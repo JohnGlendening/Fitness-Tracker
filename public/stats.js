@@ -1,35 +1,17 @@
 // get all workout data from back-end
-$(document).ready( async function(){
 
-
-  getCompletedWorkOuts();
-
-})
-// fetch("/api/workouts/range")
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(data => {
-//     populateChart(data);
-//   });
-
-  let data= [];
-
-  async function getCompletedWorkOuts(){
-    const getCompletedWorkOuts = await $.get( '/api/completedWorkouts');
-    console.log('my completed WorkOutList is : ', getCompletedWorkOuts);
-    getCompletedWorkOuts.forEach( function( workout ){
-      data.push(workout)
-    })
-    
+fetch("/api/workouts/range")
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
     populateChart(data);
-  };
-  console.log(`global completed WorkOut `, data);
+  });
 
 
-// API.getWorkoutsInRange()
+API.getWorkoutsInRange()
 
-function generatePalette() {
+  function generatePalette() {
     const arr = [
     "#003f5c",
     "#2f4b7c",
@@ -52,8 +34,6 @@ function generatePalette() {
   return arr;
   }
 function populateChart(data) {
-
-  
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
@@ -210,10 +190,10 @@ function duration(data) {
   let durations = [];
 
   data.forEach(workout => {
-    durations.push(workout.duration);
+    workout.exercises.forEach(exercise => {
+      durations.push(exercise.duration);
+    });
   });
-
-  console.log('durations: ', durations)
 
   return durations;
 }
@@ -222,33 +202,22 @@ function calculateTotalWeight(data) {
   let total = [];
 
   data.forEach(workout => {
-    total.push(workout.weight);
+    workout.exercises.forEach(exercise => {
+      total.push(exercise.weight);
+    });
   });
-  
-  // data.forEach(workout => {
-  //   workout.exercises.forEach(exercise => {
-  //     total.push(exercise.weight);
-  //   });
-  // });
-  console.log('total: ', total)
+
   return total;
 }
 
 function workoutNames(data) {
   let workouts = [];
 
-  // data.forEach(workout => {
-  //   workout.exercises.forEach(exercise => {
-  //     workouts.push(exercise.name);
-  //   });
-  // });
-
   data.forEach(workout => {
-    workouts.push(workout.name);
+    workout.exercises.forEach(exercise => {
+      workouts.push(exercise.name);
+    });
   });
-
-  console.log('workouts: ', workouts)
-
   
   return workouts;
 }

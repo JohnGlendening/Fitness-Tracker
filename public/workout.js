@@ -1,25 +1,16 @@
 async function initWorkout() {
-  // const lastWorkout = await API.getLastWorkout();
-  const lastWorkout = await $.get( '/api/lastworkouts');
-  console.log('my last workout is ', lastWorkout)
-
+  const lastWorkout = await API.getLastWorkout();
   console.log("Last workout:", lastWorkout);
   if (lastWorkout) {
     document
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
-      let totalDuration = 0;
-
-      lastWorkout.forEach( function( workout ){
-        totalDuration += workout.duration;
-      })
-
     const workoutSummary = {
-      date: formatDate(lastWorkout[0].date),
-      totalDuration: totalDuration,
-      numExercises: lastWorkout.length,
-      ...tallyExercises(lastWorkout)
+      date: formatDate(lastWorkout.day),
+      totalDuration: lastWorkout.totalDuration,
+      numExercises: lastWorkout.exercises.length,
+      ...tallyExercises(lastWorkout.exercises)
     };
 
     renderWorkoutSummary(workoutSummary);
@@ -43,15 +34,14 @@ function tallyExercises(exercises) {
 }
 
 function formatDate(date) {
-  date = moment(date).format("MMM Do YY");
-  // const options = {
-  //   weekday: "long",
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric"
-  // };
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
 
-  return date;
+  return new Date(date).toLocaleDateString(options);
 }
 
 function renderWorkoutSummary(summary) {
@@ -70,10 +60,13 @@ function renderWorkoutSummary(summary) {
   Object.keys(summary).forEach(key => {
     const p = document.createElement("p");
     const strong = document.createElement("strong");
+
     strong.textContent = workoutKeyMap[key];
     const textNode = document.createTextNode(`: ${summary[key]}`);
+
     p.appendChild(strong);
     p.appendChild(textNode);
+
     container.appendChild(p);
   });
 }
