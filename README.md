@@ -25,9 +25,6 @@ Bootstrap, HTML, CSS, JS, NodeJS, express, mongoose, mongoDB, body-parser and mo
 
 
 
---Authors--
-
-James Davies / james.davies92@icloud.com
 
 
 
