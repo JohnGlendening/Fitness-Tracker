@@ -24,4 +24,3 @@ The user is able to:
 
 The application can be accessed through the following link:
 
-https://workout-tracker-hw-btcam202.herokuapp.com/?id=undefined
