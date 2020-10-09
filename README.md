@@ -1,26 +1,36 @@
+# Unit-17-Nosql-Homework-Workout-Tracker
 
-# Workout Tracker
-For this assignment, I was tasked to create a workout tracker. This assignment required us to create Mongo database with a Mongoose schema and handle routes with Express.
 
-## User Story
+--Homework 17 -  Nosql-Homework-Workout-Tracker--
 
-* As a user, I want to be able to view create and track daily workouts. I want to be able to log multiple exercises in a workout on a given day. I should also be able to track the name, type, weight, sets, reps, and duration of exercise. If the exercise is a cardio exercise, I should be able to track my distance traveled.
 
-## Business Context
+--User story--
 
-A consumer will reach their fitness goals quicker when they track their workout progress.
+As a user, I want to be able to view create and track daily workouts. I want to be able to log multiple exercises in a workout on a given day. I should also be able to track the name, type, weight, sets, reps, and duration of exercise. If the exercise is a cardio exercise, I should be able to track my distance traveled.
 
-## Acceptance Criteria
 
-When the user loads the page, they are given the option to create a new workout, or continue with their last workout.
 
-The user is able to:
+--Getting Started--
 
-  * Add new exercises to a new workout plan.
+clone this repo into your local and run 'npm i' in the root file of the folder. 
+This will install all neccesary dependancies and then type 'npm start' in terminal to begin hosting locally.
+navigate to your browser if not already open and put this url 'http://localhost:3000/' into the url address bar to
+find yourself on the workout tracker app. follow app instructions to create new workouts, add exercises to existing workouts and view all your workouts and activity.
 
-  * View multiple the combined weight of multiple exercises on the `stats` page.
 
-## Live Demo
 
-The application can be accessed through the following link:
+--Built With--
 
+Bootstrap, HTML, CSS, JS, NodeJS, express, mongoose, mongoDB, body-parser and morgan.
+
+
+
+--Authors--
+
+James Davies / james.davies92@icloud.com
+
+
+
+--Acknowledgments--
+
+UofManchester  coding bootcamp staff
