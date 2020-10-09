@@ -1,33 +1,65 @@
 const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-// const exerciseRoutes = require("./routes/exercises");
-// const workoutRoutes = require("./routes/workouts");
-const apiRoutes = require("./routes/api");
-const viewRoutes = require("./routes/views");
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(
-  "mongodb+srv://user:user@mycluster-i5mnv.mongodb.net/workouts?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useFindAndModify: false
-  }
-);
+const orm = require( './orm' );
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static("public"));
+const app = express();
 
-app.use(apiRoutes);
-app.use(viewRoutes);
-// app.use(workoutRoutes);
 
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+app.use( express.static('public') );
+app.use( express.urlencoded({ extended: false }) );
+
+app.post( '/api/postWorkouts', async function( req, res ){
+    // console.log( `[POST api/registration] recieved: `, req.body );
+    console.log('in the server file received req.body is : ', req.body);
+    await orm.createWorkout( req.body );
+
+    res.send( { message: `Thank you, saved workout ${req.body.name}` } );
+} );
+
+app.get( '/api/workouts', async function( req, res ){
+    const myWorkOutList = await orm.listWorkOuts();
+    res.send(myWorkOutList);
+});
+app.get( '/api/completedWorkouts', async function( req, res ){
+    const myCompletedWorkOutList = await orm.listCompletedWorkOuts();
+    res.send(myCompletedWorkOutList);
+});
+app.get( '/api/uncompletedworkouts', async function( req, res ){
+    const notCompletedList = await orm.listNonCompletedWorkOuts();
+    res.send(notCompletedList);
+});
+app.get( '/api/lastworkouts', async function( req, res ){
+    const myLastWorkOut = await orm.lastWorkOut();
+    console.log(myLastWorkOut)
+    res.send(myLastWorkOut);
 });
 
-app.listen(PORT, () => console.log("listening on port: ", PORT));
+app.delete( `/api/completeWorkout/:id/:time`, async function( req, res ){
+    console.log( `[DELETE api/completeWorkout] id=${req.params.id}` );
+    await orm.completeWorkout( req.params.id , req.params.time  );
+
+    res.send( { message: `Thank you, completed #${req.params.id} at #${req.params.time}`} );
+} );
+
+
+
+//When New WorkOut clicked => send to exercise.html file
+// app.get("/exercise",  (req, res) => {
+//     const readExerciseFile =  fs.readFileSync('public/exercise.html','utf-8');
+//     res.send(readExerciseFile);
+// });
+//When dashboard clicked => send to stats.html file
+// app.get("/stats",  (req, res) => {
+//     const readExerciseFile =  fs.readFileSync('public/stats.html','utf-8');
+//     res.send(readExerciseFile);
+// });
+// app.post("/api/workouts", async (req, res) => {
+// })
+
+
+
+app.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`)
+})
